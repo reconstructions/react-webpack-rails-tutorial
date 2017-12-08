@@ -1,5 +1,5 @@
 # Run Rails without hot reloading (static assets).
-rails: rails s -b 0.0.0.0
+rails: rails s -b 0.0.0.0 -p ${PORT:-5000}
 
 # Build client assets, watching for changes.
 rails-client-assets: rm -rf public/webpack/development || true && bundle exec rake react_on_rails:locale && yarn run build:dev:client

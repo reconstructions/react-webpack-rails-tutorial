@@ -178,7 +178,7 @@ RSpec.configure do |config|
   # This will insert a <base> tag with the asset host into the pages created by
   # save_and_open_page, meaning that relative links will be loaded from the
   # development server if it is running.
-  Capybara.asset_host = "http://localhost:3000"
+  Capybara.asset_host = "http://localhost:#{ENV['ACTION_CABLE_PORT'] || 3000}"
 
   def js_errors_driver
     Capybara.javascript_driver == :poltergeist ? :poltergeist_errors_ok : Capybara.javascript_driver
