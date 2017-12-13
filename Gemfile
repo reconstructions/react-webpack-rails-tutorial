@@ -52,6 +52,8 @@ gem "awesome_print"
 # It is critical to not include any of the jquery gems when following this pattern or
 # else you might have multiple jQuery versions.
 
+gem "seedbank"
+
 group :development do
   # Access an IRB console on exceptions page and /console in development
   gem "web-console"
