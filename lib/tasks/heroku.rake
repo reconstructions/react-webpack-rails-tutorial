@@ -18,7 +18,7 @@ namespace :heroku do
 
   # This is only useful if you have an already set up a named Heroko app.
   desc "Set Heroku as a Git remote:"
-  task :set_up_remote, :remote_name do |t, args|
+  task :set_up_remote, :remote_name do |_t, args|
     begin
       if args.remote_name.nil?
         puts Rainbow("Please enter a remote_name!").red
@@ -27,7 +27,7 @@ namespace :heroku do
         puts "Setting up remote with remote_name '#{args.remote_name}'"
         sh "heroku git:remote -a #{args.remote_name}"
       end
-    rescue StandardError => e
+    rescue StandardError
       puts Rainbow("Heroku remote setup failed...").red
     end
   end
