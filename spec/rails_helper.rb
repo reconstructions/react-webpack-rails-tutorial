@@ -33,6 +33,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
+  config.include APIMatchers::RSpecMatchers
 
   # Next line will ensure that assets are built if webpack -w is not running
   ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config, :requires_webpack_assets)
@@ -58,7 +59,8 @@ RSpec.configure do |config|
   Capybara.default_driver = driver
 
   unless supported_drivers.include?(driver)
-    raise "Unsupported driver: #{driver} (supported = #{supported_drivers})"
+    raise "Unsupported driver: #{driver} |
+      (supported = #{supported_drivers})"
   end
 
   case driver
@@ -178,7 +180,7 @@ RSpec.configure do |config|
   # This will insert a <base> tag with the asset host into the pages created by
   # save_and_open_page, meaning that relative links will be loaded from the
   # development server if it is running.
-  Capybara.asset_host = "http://localhost:3000"
+  Capybara.asset_host = "http://localhost:#{ENV['ACTION_CABLE_PORT'] || 3000}"
 
   def js_errors_driver
     Capybara.javascript_driver == :poltergeist ? :poltergeist_errors_ok : Capybara.javascript_driver

@@ -40,17 +40,27 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    airborne (0.2.13)
+      activesupport
+      rack
+      rack-test (~> 0.6, >= 0.6.2)
+      rest-client (>= 1.7.3, < 3.0)
+      rspec (~> 3.1)
+    api_matchers (0.6.2)
+      activesupport (>= 3.2.5)
+      nokogiri (>= 1.5.2)
+      rspec (>= 3.1)
     archive-zip (0.7.0)
       io-like (~> 0.3.0)
     arel (8.0.0)
     ast (2.3.0)
-    autoprefixer-rails (7.1.6)
+    autoprefixer-rails (7.2.3)
       execjs
     awesome_print (1.8.0)
     bindex (0.5.0)
     binding_of_caller (0.7.3)
       debug_inspector (>= 0.0.1)
-    brakeman (4.0.1)
+    brakeman (4.1.1)
     builder (3.2.3)
     bundler-audit (0.6.0)
       bundler (~> 1.2)
@@ -98,6 +108,8 @@ GEM
     debug_inspector (0.0.3)
     diff-lcs (1.3)
     docile (1.1.5)
+    domain_name (0.5.20170404)
+      unf (>= 0.0.5, < 1.0.0)
     erubi (1.7.0)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -114,6 +126,8 @@ GEM
       railties (>= 3.0.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     interception (0.5)
@@ -144,14 +158,15 @@ GEM
       libv8 (~> 5.9)
     minitest (5.10.3)
     multi_json (1.12.2)
+    netrc (0.11.0)
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
-    parallel (1.12.0)
+    parallel (1.12.1)
     parser (2.4.0.2)
       ast (~> 2.3)
     pg (0.21.0)
-    poltergeist (1.16.0)
+    poltergeist (1.17.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
@@ -159,7 +174,7 @@ GEM
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-    pry-byebug (3.5.0)
+    pry-byebug (3.5.1)
       byebug (~> 9.1)
       pry (~> 0.10)
     pry-doc (0.11.1)
@@ -176,9 +191,9 @@ GEM
     public_suffix (3.0.1)
     puma (3.11.0)
     rack (2.0.3)
-    rack-proxy (0.6.2)
+    rack-proxy (0.6.3)
       rack
-    rack-test (0.8.0)
+    rack-test (0.8.2)
       rack (>= 1.0, < 3)
     rails (5.1.4)
       actioncable (= 5.1.4)
@@ -192,6 +207,10 @@ GEM
       bundler (>= 1.3.0)
       railties (= 5.1.4)
       sprockets-rails (>= 2.0.0)
+    rails-controller-testing (1.0.2)
+      actionpack (~> 5.x, >= 5.0.1)
+      actionview (~> 5.x, >= 5.0.1)
+      activesupport (~> 5.x)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -226,6 +245,14 @@ GEM
       rainbow (~> 2.2)
     redis (3.3.3)
     require_all (1.4.0)
+    rest-client (2.0.2)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
+    rspec (3.6.0)
+      rspec-core (~> 3.6.0)
+      rspec-expectations (~> 3.6.0)
+      rspec-mocks (~> 3.6.0)
     rspec-core (3.6.0)
       rspec-support (~> 3.6.0)
     rspec-expectations (3.6.0)
@@ -245,11 +272,11 @@ GEM
     rspec-retry (0.5.6)
       rspec-core (> 3.3, < 3.8)
     rspec-support (3.6.0)
-    rubocop (0.51.0)
+    rubocop (0.52.0)
       parallel (~> 1.10)
-      parser (>= 2.3.3.1, < 3.0)
+      parser (>= 2.4.0.2, < 3.0)
       powerpack (~> 0.1)
-      rainbow (>= 2.2.2, < 3.0)
+      rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-lint (2.3.1)
@@ -258,7 +285,7 @@ GEM
     ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
-    sass (3.5.3)
+    sass (3.5.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -275,7 +302,8 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (3.7.0)
+    seedbank (0.4.0)
+    selenium-webdriver (3.8.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
     sexp_processor (4.10.0)
@@ -301,18 +329,21 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.8)
-    tins (1.15.1)
+    tins (1.16.3)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
-    uglifier (3.2.0)
+    uglifier (4.0.2)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.4)
     unicode-display_width (1.3.0)
     web-console (3.5.1)
       actionview (>= 5.0)
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webpacker (3.0.2)
+    webpacker (3.2.0)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
@@ -321,12 +352,14 @@ GEM
     websocket-extensions (0.1.3)
     xpath (2.1.0)
       nokogiri (~> 1.3)
-    yard (0.9.10)
+    yard (0.9.12)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  airborne
+  api_matchers
   autoprefixer-rails
   awesome_print
   brakeman
@@ -354,7 +387,8 @@ DEPENDENCIES
   pry-rescue
   pry-stack_explorer
   puma
-  rails (~> 5)
+  rails (= 5.1.4)
+  rails-controller-testing
   rails-html-sanitizer
   rails_best_practices
   rainbow
@@ -367,6 +401,7 @@ DEPENDENCIES
   sass-rails
   scss_lint
   sdoc
+  seedbank
   selenium-webdriver
   spring
   spring-commands-rspec

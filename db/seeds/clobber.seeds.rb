@@ -1,0 +1,1 @@
+Comment.delete_all
