@@ -1,4 +1,4 @@
-comment = Comment.create(
+comment = Comment.create!(
   author: "bar",
   text: "foo"
 )
