@@ -19,6 +19,8 @@ gem "sass-rails"
 gem "uglifier"
 gem "webpacker"
 
+gem "seedbank"
+
 group :development do
   gem "web-console"
 end
