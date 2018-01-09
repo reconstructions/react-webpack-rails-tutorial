@@ -1,7 +1,23 @@
 if %w[development test].include? Rails.env
   namespace :lint do
-    desc "Run Rubocop lint as shell. Specify option fix to auto-correct (and " \
-      "don't have uncommitted files!)."
+    desc "Use eslint to check Javascript syntax"
+    task :eslint do
+      puts Rainbow("\n\s\srake lint:eslint\n").blueviolet
+      cmd = "yarn run lint"
+      puts "Running eslint via `#{cmd}`"
+      sh cmd
+    end
+
+    desc "Use stylelint to check SCSS and CSS syntax"
+    task :stylelint do
+      puts Rainbow("\n\s\srake lint:stylelint\n").blueviolet
+      cmd = "stylelint client/**/*.scss app/assets/stylesheets/*.scss " \
+        "--config client/.stylelintrc"
+      puts "Running styleling via `#{cmd}`"
+      sh cmd
+    end
+
+    desc "Use rubocop to check Ruby syntax"
     task :rubocop, [:fix] => [] do |_t, args|
       def to_bool(str)
         return true if str =~ /^(true|t|yes|y|1)$/i
@@ -9,7 +25,7 @@ if %w[development test].include? Rails.env
         raise ArgumentError, "invalid value for Boolean: \"#{str}\""
       end
 
-      puts Rainbow("\n\s\srubocop:\n").blueviolet
+      puts Rainbow("\n\s\srake lint:rubocop\n").blueviolet
       fix = (args.fix == "fix") || to_bool(args.fix)
       cmd = "rubocop -S -D#{fix ? ' -a' : ''} ."
       puts "Running Rubocop Linters via `#{cmd}`" \
@@ -17,51 +33,35 @@ if %w[development test].include? Rails.env
       sh cmd
     end
 
-    desc "Run ruby-lint as shell"
+    desc "Use ruby-lint to check for unused variables or methods"
     task :ruby_lint do
-      puts Rainbow("\n\s\sruby-lint:\n").blueviolet
+      puts Rainbow("\n\s\srake lint:ruby_lint\n").blueviolet
       cmd = "ruby-lint app config spec lib"
       puts "Running ruby-lint Linters via `#{cmd}`"
       sh cmd
     end
 
-    desc "Run Rails Best Practices"
+    desc "Use rails_best_practices to check Rails code quality"
     task :rails_best_practices do
-      puts Rainbow("\n\s\srails_best_practices:\n").blueviolet
+      puts Rainbow("\n\s\srake lint:rails_best_practices\n").blueviolet
       cmd = "rails_best_practices"
       puts "Running rails_best_practices via `#{cmd}`"
       sh cmd
     end
 
-    desc "stylelint"
-    task :stylelint do
-      puts Rainbow("\n\s\sstylelint:\n").blueviolet
-      cmd = "stylelint client/**/*.scss app/assets/stylesheets/*.scss " \
-        "--config client/.stylelintrc"
-      puts "Running styleling via `#{cmd}`"
-      sh cmd
-    end
-
-    desc "eslint"
-    task :eslint do
-      puts Rainbow("\n\s\seslint:\n").blueviolet
-      cmd = "yarn run lint"
-      puts "Running eslint via `#{cmd}`"
-      sh cmd
-    end
-
-    desc "JS and SCSS Linting"
+    desc "Run all Javascript & CSS linters"
     task js: %i[eslint stylelint] do
-      puts "\nCompleted all JavaScript and SCSS linting"
+      puts "\nCompleted all JavaScript SCSS linting"
     end
 
-    desc "Rails and Ruby Linting"
+    desc "Run all Rails & Ruby linters"
     task rails: %i[rubocop ruby_lint rails_best_practices] do
       puts "\nCompleted all Rails and Ruby linting"
     end
 
+    desc "Run all Rails & Javascript linters"
     task :lint do
-      puts Rainbow("\n\s\sJS and Rails Linting:\n").blueviolet.underline
+      puts Rainbow("\nrake lint").blueviolet.bright.underline
       Rake::Task["lint:js"].invoke
       Rake::Task["lint:rails"].invoke
       puts "\nAll linting complete"
@@ -69,6 +69,6 @@ if %w[development test].include? Rails.env
     end
   end
 
-  desc "Runs all linters. Run `rake -D lint` to see all available lint options"
+  desc "Run all Rails & Javascript linters"
   task lint: ["lint:lint"]
 end
